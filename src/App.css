@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #14f06e;
+  --dark: #0a0f0a;
+  --dark-light: #1a1f1a;
+}
+
+body {
+  margin: 0;
+  font-family: 'Share Tech Mono', monospace;
+  background-color: var(--dark);
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bg-dark {
+  background-color: var(--dark);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+/* Crowd Animations */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes bounce-medium {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes bounce-fast {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+
+@keyframes sway-left {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(-5px) rotate(-3deg); }
+}
+
+@keyframes sway-right {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(5px) rotate(3deg); }
+}
+
+@keyframes headbang {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-15deg); }
+  75% { transform: rotate(15deg); }
+}
+
+@keyframes jump {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}
+
+@keyframes wave-arms {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-5px) rotate(-5deg); }
+  75% { transform: translateY(-5px) rotate(5deg); }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 1.2s ease-in-out infinite;
+}
+
+.animate-bounce-medium {
+  animation: bounce-medium 0.8s ease-in-out infinite;
+}
+
+.animate-bounce-fast {
+  animation: bounce-fast 0.5s ease-in-out infinite;
+}
+
+.animate-sway-left {
+  animation: sway-left 2s ease-in-out infinite;
+}
+
+.animate-sway-right {
+  animation: sway-right 2s ease-in-out infinite;
+}
+
+.animate-headbang {
+  animation: headbang 0.3s ease-in-out infinite;
+}
+
+.animate-jump {
+  animation: jump 0.6s ease-in-out infinite;
+}
+
+.animate-wave-arms {
+  animation: wave-arms 1s ease-in-out infinite;
+}
+
+/* String Lights Animation */
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.animate-twinkle {
+  animation: twinkle 1.5s ease-in-out infinite;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
