@@ -109,6 +109,10 @@ const PRESET_VIDEOS = [
   { id: 'WM8bTdBs-cw', title: 'Metallica - One', genre: 'metal' },
   { id: 'aAXgVWuEYZo', title: 'System of a Down - Toxicity', genre: 'metal' },
   { id: 'CSvFpBOe8eY', title: 'Slipknot - Psychosocial', genre: 'metal' },
+  // Death Metal
+  { id: '5abamRO41fE', title: 'Cannibal Corpse - Hammer Smashed Face', genre: 'death-metal' },
+  { id: 'tJ7Y4SNj6u4', title: 'Death - Crystal Mountain', genre: 'death-metal' },
+  { id: 'BGHlZwMYO9g', title: 'Gojira - Flying Whales', genre: 'death-metal' },
   // Punk
   { id: 'Soa3gO7tL-c', title: 'Green Day - Basket Case', genre: 'punk' },
   { id: 'z5OXON8vIaA', title: 'Blink-182 - All The Small Things', genre: 'punk' },
@@ -253,6 +257,7 @@ function ConcertCrowdSim() {
           >
             <option value="rock">Rock</option>
             <option value="metal">Metal</option>
+            <option value="death-metal">Death Metal</option>
             <option value="pop">Pop</option>
             <option value="edm">EDM</option>
             <option value="indie">Indie</option>
