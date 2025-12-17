@@ -92,9 +92,31 @@ const CROWD_ACTIONS = [
 ];
 
 const PRESET_VIDEOS = [
+  // Rock
   { id: 'n0H3RlaQVrM', title: 'Coheed and Cambria - Welcome Home', genre: 'rock' },
   { id: '_wY7Gjf0yXQ', title: 'Hot Mulligan - *Equip Sunglasses*', genre: 'rock' },
+  { id: 'JJJ27NxYamY', title: 'Foo Fighters - Everlong', genre: 'rock' },
+  { id: '1w7OgIMMRc4', title: 'Guns N Roses - Sweet Child O Mine', genre: 'rock' },
+  // Indie
   { id: 'MpSTBFGbKrY', title: 'Ethel Cain - American Teenager', genre: 'indie' },
+  { id: 'VGvHnDeS12o', title: 'Arctic Monkeys - R U Mine?', genre: 'indie' },
+  { id: '8UVNT4wvIGY', title: 'Tame Impala - The Less I Know', genre: 'indie' },
+  // Pop
+  { id: 'fJ9rUzIMcZQ', title: 'Queen - Bohemian Rhapsody', genre: 'pop' },
+  { id: 'btPJPFnesV4', title: 'Ed Sheeran - Sing', genre: 'pop' },
+  { id: 'nfWlot6h_JM', title: 'Taylor Swift - Shake It Off', genre: 'pop' },
+  // Metal
+  { id: 'WM8bTdBs-cw', title: 'Metallica - One', genre: 'metal' },
+  { id: 'aAXgVWuEYZo', title: 'System of a Down - Toxicity', genre: 'metal' },
+  { id: 'CSvFpBOe8eY', title: 'Slipknot - Psychosocial', genre: 'metal' },
+  // Punk
+  { id: 'Soa3gO7tL-c', title: 'Green Day - Basket Case', genre: 'punk' },
+  { id: 'z5OXON8vIaA', title: 'Blink-182 - All The Small Things', genre: 'punk' },
+  { id: 'jrxI_euTX4A', title: 'Paramore - Misery Business', genre: 'punk' },
+  // EDM
+  { id: '60ItHLz5WEA', title: 'Avicii - Levels', genre: 'edm' },
+  { id: 'IxxstCcJlsc', title: 'Deadmau5 - Ghosts n Stuff', genre: 'edm' },
+  { id: 'y6120QOlsfU', title: 'Sandstorm - Darude', genre: 'edm' },
 ];
 
 function ConcertCrowdSim() {
@@ -189,6 +211,13 @@ function ConcertCrowdSim() {
     setYoutubeUrl(`https://youtube.com/watch?v=${preset.id}`);
   };
 
+  const handleSurpriseMe = () => {
+    const randomPreset = PRESET_VIDEOS[Math.floor(Math.random() * PRESET_VIDEOS.length)];
+    handlePresetSelect(randomPreset);
+  };
+
+  const filteredPresets = PRESET_VIDEOS.filter(p => p.genre === genre);
+
   return (
     <div className="space-y-6">
       {/* YouTube Input */}
@@ -215,9 +244,31 @@ function ConcertCrowdSim() {
           </button>
         </div>
 
+        {/* Genre selector and Surprise Me */}
+        <div className="flex flex-wrap items-center gap-2 mb-3">
+          <select
+            value={genre}
+            onChange={(e) => setGenre(e.target.value)}
+            className="px-3 py-1.5 bg-dark-card border border-dark-border rounded text-sm text-primary"
+          >
+            <option value="rock">Rock</option>
+            <option value="metal">Metal</option>
+            <option value="pop">Pop</option>
+            <option value="edm">EDM</option>
+            <option value="indie">Indie</option>
+            <option value="punk">Punk</option>
+          </select>
+          <button
+            onClick={handleSurpriseMe}
+            className="px-3 py-1.5 bg-primary/20 border border-primary text-primary hover:bg-primary/30 rounded text-sm transition-colors"
+          >
+            🎲 Surprise Me
+          </button>
+        </div>
+
+        {/* Filtered presets */}
         <div className="flex flex-wrap gap-2">
-          <span className="text-xs text-gray-500 w-full mb-1">Quick picks:</span>
-          {PRESET_VIDEOS.map((preset) => (
+          {filteredPresets.map((preset) => (
             <button
               key={preset.id}
               onClick={() => handlePresetSelect(preset)}
@@ -228,7 +279,7 @@ function ConcertCrowdSim() {
               }`}
               title={preset.title}
             >
-              {preset.title.split(' - ')[0]}
+              {preset.title.split(' - ')[1] || preset.title.split(' - ')[0]}
             </button>
           ))}
         </div>
@@ -337,30 +388,16 @@ function ConcertCrowdSim() {
 
       {/* Controls */}
       <div className="space-y-4">
-        <div className="flex items-center gap-4">
-          <label className="text-sm text-gray-400">Genre:</label>
-          <select
-            value={genre}
-            onChange={(e) => setGenre(e.target.value)}
-            className="px-3 py-1 bg-dark border border-dark-border rounded text-sm text-primary"
-          >
-            <option value="rock">Rock</option>
-            <option value="metal">Metal</option>
-            <option value="pop">Pop</option>
-            <option value="edm">EDM</option>
-            <option value="indie">Indie</option>
-            <option value="punk">Punk</option>
-          </select>
-
-          {showVideo && (
+        {showVideo && (
+          <div className="flex justify-end">
             <button
               onClick={() => { setShowVideo(false); setVideoId(null); }}
-              className="ml-auto px-3 py-1 text-xs border border-dark-border hover:border-gray-600 text-gray-400 rounded transition-colors"
+              className="px-3 py-1 text-xs border border-dark-border hover:border-gray-600 text-gray-400 rounded transition-colors"
             >
               Hide Video
             </button>
-          )}
-        </div>
+          </div>
+        )}
 
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
           {CROWD_ACTIONS.map((action) => (
