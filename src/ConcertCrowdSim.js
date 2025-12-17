@@ -96,7 +96,7 @@ const PRESET_VIDEOS = [
   { id: 'n0H3RlaQVrM', title: 'Coheed and Cambria - Welcome Home', genre: 'rock' },
   { id: '_wY7Gjf0yXQ', title: 'Hot Mulligan - *Equip Sunglasses*', genre: 'rock' },
   { id: 'JJJ27NxYamY', title: 'Foo Fighters - Everlong', genre: 'rock' },
-  { id: '1w7OgIMMRc4', title: 'Guns N Roses - Sweet Child O Mine', genre: 'rock' },
+  { id: 'VOyYwzkQB98', title: 'Neck Deep - In Bloom', genre: 'rock' },
   // Indie
   { id: 'MpSTBFGbKrY', title: 'Ethel Cain - American Teenager', genre: 'indie' },
   { id: 'VGvHnDeS12o', title: 'Arctic Monkeys - R U Mine?', genre: 'indie' },
