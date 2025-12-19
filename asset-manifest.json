@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/concert-crowd-sim/static/css/main.324651d1.css",
-    "main.js": "/concert-crowd-sim/static/js/main.28b17c0c.js",
+    "main.css": "/concert-crowd-sim/static/css/main.168822ed.css",
+    "main.js": "/concert-crowd-sim/static/js/main.8304dbfc.js",
     "index.html": "/concert-crowd-sim/index.html",
-    "main.324651d1.css.map": "/concert-crowd-sim/static/css/main.324651d1.css.map",
-    "main.28b17c0c.js.map": "/concert-crowd-sim/static/js/main.28b17c0c.js.map"
+    "main.168822ed.css.map": "/concert-crowd-sim/static/css/main.168822ed.css.map",
+    "main.8304dbfc.js.map": "/concert-crowd-sim/static/js/main.8304dbfc.js.map"
   },
   "entrypoints": [
-    "static/css/main.324651d1.css",
-    "static/js/main.28b17c0c.js"
+    "static/css/main.168822ed.css",
+    "static/js/main.8304dbfc.js"
   ]
 }
