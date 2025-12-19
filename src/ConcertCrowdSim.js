@@ -16,7 +16,7 @@ const extractYouTubeId = (url) => {
 };
 
 // Pixel person component
-const PixelPerson = ({ x, energy, action, color, delay, isMobileView }) => {
+const PixelPerson = ({ x, energy, action, color, delay, isMobileView, inCirclePit }) => {
   const getAnimation = () => {
     switch (action) {
       case 'jump':
@@ -26,7 +26,7 @@ const PixelPerson = ({ x, energy, action, color, delay, isMobileView }) => {
       case 'headbang':
         return 'animate-headbang';
       case 'mosh':
-        return 'animate-mosh';
+        return inCirclePit ? 'animate-circle-pit' : 'animate-mosh';
       case 'lighter':
         return 'animate-sway';
       default:
@@ -65,19 +65,51 @@ const PixelPerson = ({ x, energy, action, color, delay, isMobileView }) => {
   );
 };
 
+// Crowd surfer component
+const CrowdSurfer = ({ isActive, delay }) => {
+  if (!isActive) return null;
+
+  return (
+    <div
+      className="absolute animate-crowd-surf z-30"
+      style={{
+        bottom: '80px',
+        left: '20%',
+        animationDelay: `${delay}s`,
+      }}
+    >
+      <div className="animate-crowd-surf-bounce">
+        {/* Horizontal person being held up */}
+        <div className="flex items-center">
+          <div className="w-5 h-3 rounded-sm bg-yellow-400" /> {/* body */}
+          <div className="w-3 h-3 rounded-full bg-yellow-400 -ml-1" /> {/* head */}
+        </div>
+        {/* Arms reaching up */}
+        <div className="text-xs mt-0.5 text-center">🙌</div>
+      </div>
+    </div>
+  );
+};
+
 const generateCrowd = (count, isMobile = false) => {
   const colors = [
     '#14f06e', '#f0a830', '#ff6b6b', '#4ecdc4', '#45b7d1',
     '#96ceb4', '#ffeaa7', '#dfe6e9', '#fd79a8', '#a29bfe'
   ];
   const actualCount = isMobile ? Math.min(count, 15) : count;
-  return Array.from({ length: actualCount }, (_, i) => ({
-    id: i,
-    x: 8 + (i / actualCount) * 84 + (Math.random() - 0.5) * 3,
-    color: colors[Math.floor(Math.random() * colors.length)],
-    delay: Math.random() * 500,
-    baseEnergy: 30 + Math.random() * 40,
-  }));
+  return Array.from({ length: actualCount }, (_, i) => {
+    const x = 8 + (i / actualCount) * 84 + (Math.random() - 0.5) * 3;
+    // People in center area (35%-65%) are in the circle pit
+    const inCirclePit = x > 35 && x < 65;
+    return {
+      id: i,
+      x,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      delay: Math.random() * 500,
+      baseEnergy: 30 + Math.random() * 40,
+      inCirclePit,
+    };
+  });
 };
 
 const isMobile = () => typeof window !== 'undefined' && window.innerWidth < 640;
@@ -94,29 +126,27 @@ const CROWD_ACTIONS = [
 const PRESET_VIDEOS = [
   // Rock
   { id: 'n0H3RlaQVrM', title: 'Coheed and Cambria - Welcome Home', genre: 'rock' },
-  { id: '_wY7Gjf0yXQ', title: 'Hot Mulligan - *Equip Sunglasses*', genre: 'rock' },
+  { id: 'RyYku9UU6fE', title: 'Hot Mulligan - BCKYRD', genre: 'rock' },
   { id: 'JJJ27NxYamY', title: 'Foo Fighters - Everlong', genre: 'rock' },
-  { id: 'VOyYwzkQB98', title: 'Neck Deep - In Bloom', genre: 'rock' },
-  // Indie
-  { id: 'MpSTBFGbKrY', title: 'Ethel Cain - American Teenager', genre: 'indie' },
-  { id: 'VGvHnDeS12o', title: 'Arctic Monkeys - R U Mine?', genre: 'indie' },
-  { id: '8UVNT4wvIGY', title: 'Tame Impala - The Less I Know', genre: 'indie' },
+  { id: 'VOyYwzkQB98', title: 'Neck Deep - A Part of Me', genre: 'rock' },
   // Pop
   { id: 'fJ9rUzIMcZQ', title: 'Queen - Bohemian Rhapsody', genre: 'pop' },
   { id: 'btPJPFnesV4', title: 'Ed Sheeran - Sing', genre: 'pop' },
   { id: 'nfWlot6h_JM', title: 'Taylor Swift - Shake It Off', genre: 'pop' },
   // Metal
   { id: 'WM8bTdBs-cw', title: 'Metallica - One', genre: 'metal' },
-  { id: 'aAXgVWuEYZo', title: 'System of a Down - Toxicity', genre: 'metal' },
-  { id: 'CSvFpBOe8eY', title: 'Slipknot - Psychosocial', genre: 'metal' },
+  { id: 'CSvFpBOe8eY', title: 'System of a Down - Chop Suey!', genre: 'metal' },
+  { id: 'Kz3n0rRx9sw', title: 'Currents - The Death We Seek', genre: 'metal' },
   // Death Metal
-  { id: '5abamRO41fE', title: 'Cannibal Corpse - Hammer Smashed Face', genre: 'death-metal' },
-  { id: 'tJ7Y4SNj6u4', title: 'Death - Crystal Mountain', genre: 'death-metal' },
-  { id: 'BGHlZwMYO9g', title: 'Gojira - Flying Whales', genre: 'death-metal' },
+  { id: 'CSvFpBOe8eY', title: 'System of a Down - Chop Suey!', genre: 'death-metal' },
+  { id: '5abamRO41fE', title: 'Slipknot - Psychosocial', genre: 'death-metal' },
+  { id: 'BGHlZwMYO9g', title: 'Gojira - L\'Enfant Sauvage', genre: 'death-metal' },
   // Punk
-  { id: 'Soa3gO7tL-c', title: 'Green Day - Basket Case', genre: 'punk' },
-  { id: 'z5OXON8vIaA', title: 'Blink-182 - All The Small Things', genre: 'punk' },
-  { id: 'jrxI_euTX4A', title: 'Paramore - Misery Business', genre: 'punk' },
+  { id: 'xHR-rzUjCzU', title: 'Black Flag - Rise Above', genre: 'punk' },
+  { id: '6nE8DFaxd94', title: 'Wire - Ex Lion Tamer', genre: 'punk' },
+  { id: 'Soa3gO7tL-c', title: 'Green Day - Boulevard of Broken Dreams', genre: 'punk' },
+  { id: 'z5OXON8vIaA', title: 'War - Why Can\'t We Be Friends', genre: 'punk' },
+  { id: 'jrxI_euTX4A', title: 'Bowling for Soup - High School Never Ends', genre: 'punk' },
   // EDM
   { id: '60ItHLz5WEA', title: 'Avicii - Levels', genre: 'edm' },
   { id: 'IxxstCcJlsc', title: 'Deadmau5 - Ghosts n Stuff', genre: 'edm' },
@@ -379,8 +409,12 @@ function ConcertCrowdSim() {
               energy={energy}
               action={isPlaying ? getCrowdAction(person.id) : 'idle'}
               isMobileView={isMobileView}
+              inCirclePit={person.inCirclePit}
             />
           ))}
+          {/* Crowd surfers during mosh */}
+          <CrowdSurfer isActive={currentAction === 'mosh' && isPlaying} delay={0} />
+          <CrowdSurfer isActive={currentAction === 'mosh' && isPlaying} delay={2} />
         </div>
 
         <div
